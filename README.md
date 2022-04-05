@@ -185,11 +185,17 @@ $ storyblok logout
 
 ### login
 
-Login to the Storyblok cli
+Login to the Storyblok cli.
+Will prompt for login information, optionally pass via options.
 
 ```sh
 $ storyblok login
 ```
+
+#### Options
+
+* `user`: the user/email to log in with
+* `password`: the password to log in with
 
 ### generate-migration
 

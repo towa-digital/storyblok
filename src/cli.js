@@ -39,14 +39,16 @@ program
 program
   .command('login')
   .description('Login to the Storyblok cli')
-  .action(async () => {
+  .option('-u, --user <user>', 'user/email to log in with')
+  .option('-p, --password <password>', 'password to log in with')
+  .action(async (options) => {
     if (api.isAuthorized()) {
       console.log(chalk.green('✓') + ' The user has been already logged. If you want to change the logged user, you must logout and login again')
       return
     }
 
     try {
-      await api.processLogin()
+      await api.processLogin(options.user, options.password)
       process.exit(0)
     } catch (e) {
       console.log(chalk.red('X') + ' An error occurred when logging the user: ' + e.message)

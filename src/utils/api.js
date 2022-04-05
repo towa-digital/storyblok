@@ -102,12 +102,18 @@ module.exports = {
     return Promise.reject(new Error('The code could not be authenticated.'))
   },
 
-  async processLogin () {
+  async processLogin (user, password) {
     try {
-      const questions = getQuestions('login')
-      const { email, password } = await inquirer.prompt(questions)
+      let finalUser = user
+      let finalPassword = password
+      if (!finalUser || !finalPassword) {
+        const questions = getQuestions('login')
+        const { email, password } = await inquirer.prompt(questions)
+        finalUser = email
+        finalPassword = password
+      }
 
-      const data = await this.login(email, password)
+      const data = await this.login(finalUser, finalPassword)
 
       console.log(chalk.green('✓') + ' Log in successfully! Token has been added to .netrc file.')
 
